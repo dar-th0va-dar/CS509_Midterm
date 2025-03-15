@@ -10,11 +10,6 @@ import java.util.Scanner;
 public class Login {
     private static String login;
     private static int pin;
-    private static String role;
-
-    public Login() {
-
-    }
 
     public static IUser login() throws SQLException {
         Scanner s = new Scanner(System.in);

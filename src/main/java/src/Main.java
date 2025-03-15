@@ -11,16 +11,15 @@ public class Main {
         if (user instanceof ICustomer) {
             System.out.println("Welcome " + ((ICustomer) user).getName() + "!");
 
-            int menu = 0;
             while (true) {
                 System.out.println();
                 System.out.println("1----Withdraw Cash");
                 System.out.println("2----Deposit Cash");
                 System.out.println("3----Display Balance");
                 System.out.println("4----Exit");
-                System.out.print("What would you like to do? ");
+                System.out.print("What would you like to do? (Enter the number): ");
 
-                menu = s.nextInt();
+                int menu = s.nextInt();
                 switch (menu) {
                     case 1:
                         System.out.println("Enter the withdrawal amount: ");
@@ -42,8 +41,6 @@ public class Main {
                     default:
                         System.out.println("That is not a valid option, please try again");
                 }
-
-                menu = 0;
             }
 
         } else if (user instanceof IAdmin) {
