@@ -1,6 +1,6 @@
-package org.example;
+package src;
 
-public interface ICustomer {
+public interface ICustomer extends IUser {
 
     public void withdrawCash(int amount);
     public void depositCash(int amount);
