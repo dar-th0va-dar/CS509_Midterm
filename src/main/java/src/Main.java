@@ -40,6 +40,38 @@ public class Main {
             }
         } else if (user instanceof IAdmin) {
             System.out.println("Welcome Admin");
+
+            while (true) {
+                System.out.println();
+                System.out.println("1----Create New Account");
+                System.out.println("2----Delete Existing Account");
+                System.out.println("3----Update Account Information");
+                System.out.println("4----Search for Account");
+                System.out.println("5----Exit");
+                System.out.print("What would you like to do? (Enter the number): ");
+
+                int menu = s.nextInt();
+                System.out.println();
+                switch (menu) {
+                    case 1:
+                        ((IAdmin) user).createNewAccount();
+                        break;
+                    case 2:
+                        ((IAdmin) user).deleteExistingAccount();
+                        break;
+                    case 3:
+                        ((IAdmin) user).updateAccountInfo();
+                        break;
+                    case 4:
+                        ((IAdmin) user).searchForAccount();
+                        break;
+                    case 5:
+                        ((IAdmin) user).exit();
+                        break;
+                    default:
+                        System.out.println("That is not a valid option, please try again");
+                }
+            }
         } else {
             System.out.println("That was an incorrect login, please try again");
             System.exit(0);

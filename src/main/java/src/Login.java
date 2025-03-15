@@ -1,10 +1,6 @@
 package src;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Login {
@@ -25,11 +21,10 @@ public class Login {
         pin = s.nextInt();
 
         System.out.println();
-        IUser user = Authenticate.authenticateLogin(login, pin);
-        if (user != null) {
-            return user;
-        } else {
+        if (pin < 10000 || pin > 99999) {
             return null;
         }
+
+        return DatabaseConnection.findUserDatabase(login, pin);
     }
 }

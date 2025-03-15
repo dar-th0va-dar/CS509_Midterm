@@ -7,5 +7,6 @@ public interface ICustomer extends IUser {
     public void displayBalance();
     public void exit();
 
+    int getId();
     String getName();
 }

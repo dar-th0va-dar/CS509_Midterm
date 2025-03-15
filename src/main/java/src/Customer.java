@@ -1,14 +1,13 @@
 package src;
 
-import java.sql.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Customer implements ICustomer {
-    private int id;
-    private String login;
-    private int pin;
-    private String name;
+    private final int id;
+    private final String login;
+    private final int pin;
+    private final String name;
     private double balance;
     private String status;
 
@@ -23,12 +22,12 @@ public class Customer implements ICustomer {
         this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public static void addCustomerToDatabase(String login, int pin, String name, int balance, String status) {
-        // implement, needs to add to database
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class Customer implements ICustomer {
             System.out.println("Withdrawn: " + amount);
             System.out.println("Balance: " + balance);
 
-            // update database
+            DatabaseConnection.updateBalanceDatabase("balance", balance);
         } else {
             System.out.println("Cash Withdraw Unsuccessful, Insufficient Balance");
         }
@@ -68,7 +67,7 @@ public class Customer implements ICustomer {
         System.out.println("Withdrawn: " + amount);
         System.out.println("Balance: " + balance);
 
-        // update database
+        DatabaseConnection.updateBalanceDatabase("balance", balance);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class Customer implements ICustomer {
         return "Account #" + id + "\n" +
                 "Holder: " + name + "\n" +
                 "Balance: " + balance + "\n" +
-                "Status: " + status + "\n" +
+                "Status: " + status.substring(0, 1).toUpperCase() + status.substring(1) + "\n" +
                 "Login: " + login + "\n" +
                 "Pin Code: " + pin;
     }
