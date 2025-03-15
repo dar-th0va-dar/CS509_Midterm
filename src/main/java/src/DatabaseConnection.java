@@ -17,4 +17,9 @@ public class DatabaseConnection {
             return null;
         }
     }
+
+    public static ICustomer findCustomer(int id) {
+        // implement
+        return new Customer();
+    }
 }

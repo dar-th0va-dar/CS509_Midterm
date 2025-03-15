@@ -6,4 +6,6 @@ public interface ICustomer extends IUser {
     public void depositCash(int amount);
     public void displayBalance();
     public void exit();
+
+    String getName();
 }
