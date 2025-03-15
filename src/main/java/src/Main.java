@@ -20,29 +20,24 @@ public class Main {
                 System.out.print("What would you like to do? (Enter the number): ");
 
                 int menu = s.nextInt();
+                System.out.println();
                 switch (menu) {
                     case 1:
-                        System.out.println("Enter the withdrawal amount: ");
-
-                        ((ICustomer) user).withdrawCash(s.nextDouble());
+                        ((ICustomer) user).withdrawCash();
                         break;
                     case 2:
-                        System.out.println("Enter the cash amount to deposit: ");
-
-                        ((ICustomer) user).depositCash(s.nextDouble());
+                        ((ICustomer) user).depositCash();
                         break;
                     case 3:
                         ((ICustomer) user).displayBalance();
                         break;
                     case 4:
-                        System.out.println("Thank you for using this ATM!");
-                        System.exit(0);
+                        ((ICustomer) user).exit();
                         break;
                     default:
                         System.out.println("That is not a valid option, please try again");
                 }
             }
-
         } else if (user instanceof IAdmin) {
             System.out.println("Welcome Admin");
         } else {

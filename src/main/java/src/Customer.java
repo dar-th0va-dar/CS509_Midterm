@@ -2,6 +2,7 @@ package src;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Customer implements ICustomer {
     private int id;
@@ -12,26 +13,6 @@ public class Customer implements ICustomer {
     private String status;
 
     private LocalDate date;
-
-//    public Customer(String login) throws SQLException {
-//        this.login = login;
-//        date = LocalDate.now();
-//
-//        Connection database = DatabaseConnection.getConnection();
-//        PreparedStatement preparedStatement = null;
-//        ResultSet resultSet = null;
-//
-//        String sql = "SELECT * FROM users WHERE login = ?";
-//
-//        assert database != null;
-//        preparedStatement = database.prepareStatement(sql);
-//        preparedStatement.setString(1, login);
-//
-//        resultSet = preparedStatement.executeQuery();
-//
-//        id = resultSet.getInt("id");
-//        balance = resultSet.getInt("balance");
-//    }
 
     public Customer(int id, String login, int pin, String name, double balance, String status) {
         this.id = id;
@@ -51,8 +32,12 @@ public class Customer implements ICustomer {
     }
 
     @Override
-    public void withdrawCash(double amount) {
+    public void withdrawCash() {
+        Scanner s = new Scanner(System.in);
         date = LocalDate.now();
+
+        System.out.println("Enter the withdrawal amount: ");
+        double amount = s.nextDouble();
 
         if (amount < balance) {
             balance -= amount;
@@ -69,8 +54,12 @@ public class Customer implements ICustomer {
     }
 
     @Override
-    public void depositCash(double amount) {
+    public void depositCash() {
+        Scanner s = new Scanner(System.in);
         date = LocalDate.now();
+
+        System.out.println("Enter the cash amount to deposit: ");
+        double amount = s.nextDouble();
         balance += amount;
 
         System.out.println("Cash Deposited Successfully");
@@ -93,7 +82,7 @@ public class Customer implements ICustomer {
 
     @Override
     public void exit() {
-        System.out.println("Thank you for using this ATM");
+        System.out.println("Thank you for using this ATM!");
         System.exit(0);
     }
 
