@@ -1,12 +1,16 @@
 package src;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Login {
     private static String login;
     private static int pin;
-    private String role;
+    private static String role;
 
     public Login() {
 
@@ -30,9 +34,24 @@ public class Login {
             System.out.println("That was an incorrect login, please try again");
             System.exit(0);
         } else {
-            System.out.println("Welcome!");
+            Connection database = DatabaseConnection.getConnection();
+            PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
 
-            Customer user = new Customer();
+            String sql = "SELECT * FROM users WHERE role = ?";
+
+            assert database != null;
+            preparedStatement = database.prepareStatement(sql);
+            preparedStatement.setString(1, role);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (Objects.equals(resultSet.getString("role"), "customer")) {
+                System.out.println("Welcome Customer!");
+                new Customer(login);
+            } else if (Objects.equals(resultSet.getString("role"), "admin")) {
+                new Admin();
+            }
         }
     }
 }
