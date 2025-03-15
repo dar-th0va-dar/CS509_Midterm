@@ -16,7 +16,7 @@ public class Login {
 
     }
 
-    public static void login() throws SQLException {
+    public static IUser login() throws SQLException {
         Scanner s = new Scanner(System.in);
 
         System.out.println("Hello! Please login below");
@@ -30,28 +30,11 @@ public class Login {
         pin = s.nextInt();
 
         System.out.println();
-        if (!Authenticate.authenticateLogin(login, pin)) {
-            System.out.println("That was an incorrect login, please try again");
-            System.exit(0);
+        IUser user = Authenticate.authenticateLogin(login, pin);
+        if (user != null) {
+            return user;
         } else {
-            Connection database = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = null;
-            ResultSet resultSet = null;
-
-            String sql = "SELECT * FROM users WHERE role = ?";
-
-            assert database != null;
-            preparedStatement = database.prepareStatement(sql);
-            preparedStatement.setString(1, role);
-
-            resultSet = preparedStatement.executeQuery();
-
-            if (Objects.equals(resultSet.getString("role"), "customer")) {
-                System.out.println("Welcome Customer!");
-                new Customer(login);
-            } else if (Objects.equals(resultSet.getString("role"), "admin")) {
-                new Admin();
-            }
+            return null;
         }
     }
 }

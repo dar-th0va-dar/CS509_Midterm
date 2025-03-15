@@ -1,52 +1,59 @@
 package src;
 
 import java.sql.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Customer implements ICustomer {
     private int id;
     private String login;
     private int pin;
     private String name;
-    private int balance;
+    private double balance;
     private String status;
 
-    private Date date;
+    private LocalDate date;
 
-    public Customer() {
+//    public Customer(String login) throws SQLException {
+//        this.login = login;
+//        date = LocalDate.now();
+//
+//        Connection database = DatabaseConnection.getConnection();
+//        PreparedStatement preparedStatement = null;
+//        ResultSet resultSet = null;
+//
+//        String sql = "SELECT * FROM users WHERE login = ?";
+//
+//        assert database != null;
+//        preparedStatement = database.prepareStatement(sql);
+//        preparedStatement.setString(1, login);
+//
+//        resultSet = preparedStatement.executeQuery();
+//
+//        id = resultSet.getInt("id");
+//        balance = resultSet.getInt("balance");
+//    }
 
-    }
-
-    public Customer(String login) throws SQLException {
+    public Customer(int id, String login, int pin, String name, double balance, String status) {
+        this.id = id;
         this.login = login;
-        date.getDate();
-
-        Connection database = DatabaseConnection.getConnection();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        String sql = "SELECT * FROM users WHERE login = ?";
-
-        assert database != null;
-        preparedStatement = database.prepareStatement(sql);
-        preparedStatement.setString(1, login);
-
-        resultSet = preparedStatement.executeQuery();
-
-        id = resultSet.getInt("id");
-        balance = resultSet.getInt("balance");
+        this.pin = pin;
+        this.name = name;
+        this.balance = balance;
+        this.status = status;
     }
 
     public String getName() {
         return name;
     }
 
-    public static void addCustomer(String login, int pin, String name, int balance, String status) {
+    public static void addCustomerToDatabase(String login, int pin, String name, int balance, String status) {
         // implement, needs to add to database
     }
 
     @Override
-    public void withdrawCash(int amount) {
+    public void withdrawCash(double amount) {
+        date = LocalDate.now();
+
         if (amount < balance) {
             balance -= amount;
             System.out.println("Cash Successfully Withdrawn");
@@ -54,20 +61,31 @@ public class Customer implements ICustomer {
             System.out.println("Date: " + date);
             System.out.println("Withdrawn: " + amount);
             System.out.println("Balance: " + balance);
+
+            // update database
+        } else {
+            System.out.println("Cash Withdraw Unsuccessful, Insufficient Balance");
         }
     }
 
     @Override
-    public void depositCash(int amount) {
+    public void depositCash(double amount) {
+        date = LocalDate.now();
+        balance += amount;
+
         System.out.println("Cash Deposited Successfully");
         System.out.println("Account #" + id);
         System.out.println("Date: " + date);
         System.out.println("Withdrawn: " + amount);
         System.out.println("Balance: " + balance);
+
+        // update database
     }
 
     @Override
     public void displayBalance() {
+        date = LocalDate.now();
+
         System.out.println("Account #" + id);
         System.out.println("Date: " + date);
         System.out.println("Balance: " + balance);

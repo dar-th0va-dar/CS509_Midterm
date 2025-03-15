@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Authenticate {
-    public static boolean authenticateLogin(String login, int pin) throws SQLException {
+    public static IUser authenticateLogin(String login, int pin) throws SQLException {
         if (pin < 10000 || pin > 99999) {
-            return false;
+            return null;
         }
 
         Connection database = DatabaseConnection.getConnection();
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        ResultSet user = null;
 
         String sql = "SELECT * FROM users WHERE login = ? AND pin = ?";
 
@@ -22,12 +22,23 @@ public class Authenticate {
         preparedStatement.setString(1, login);
         preparedStatement.setInt(2, pin);
 
-        resultSet = preparedStatement.executeQuery();
+        user = preparedStatement.executeQuery();
 
-        if (resultSet.next()) {
-            return true;
+        if (user.next()) {
+            if (user.getString("role").equals("customer")) {
+                return new Customer(user.getInt("id"),
+                        user.getString("login"),
+                        user.getInt("pin"),
+                        user.getString("holder"),
+                        user.getDouble("balance"),
+                        user.getString("status"));
+            } else if (user.getString("role").equals("admin")) {
+                return new Admin();
+            } else {
+                return null;
+            }
         } else {
-            return false;
+            return null;
         }
     }
 }
