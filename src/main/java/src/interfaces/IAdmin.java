@@ -1,6 +1,4 @@
-package src;
-
-import java.sql.SQLException;
+package src.interfaces;
 
 public interface IAdmin extends IUser{
     void createNewAccount();

@@ -1,6 +1,8 @@
 package src;
 
-import com.google.inject.Inject;
+import src.interfaces.IAdmin;
+import src.interfaces.ICustomer;
+import src.interfaces.IUser;
 
 import java.util.Scanner;
 

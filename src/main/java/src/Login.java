@@ -1,6 +1,8 @@
 package src;
 
 import com.google.inject.Inject;
+import src.interfaces.ILogin;
+import src.interfaces.IUser;
 
 import java.util.Scanner;
 

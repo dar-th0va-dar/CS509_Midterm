@@ -1,6 +1,6 @@
 package src;
 
-import com.google.inject.Inject;
+import src.interfaces.ICustomer;
 
 import java.time.LocalDate;
 import java.util.Scanner;
