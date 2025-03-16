@@ -83,13 +83,8 @@ public class DatabaseConnection {
             statement.setDouble(4, balance);
             statement.setString(5, status);
 
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Customer added successfully!");
-            } else {
-                System.out.println("Failed to add customer.");
-            }
-
+            statement.executeUpdate();
+            System.out.println("Customer added successfully!");
         } catch (Exception e) {
             System.out.println("Failed to add customer.");
         }
@@ -103,17 +98,58 @@ public class DatabaseConnection {
 
             statement.setInt(1, id);
 
-            int rowsAffected = statement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("Account Deleted Successfully");
-            }
+            statement.executeUpdate();
+            System.out.println("Account Deleted Successfully");
         } catch (Exception e) {
             System.out.println("Failed to delete customer.");
         }
     }
 
-    public static void updateBalanceDatabase(String column, double amount) {
+    public static boolean updateIntDatabase(int id, String column, int num) {
+        String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
 
+        try (Connection database = DatabaseConnection.getConnection();
+             PreparedStatement statement = database.prepareStatement(sql)) {
+
+            statement.setInt(1, num);
+            statement.setInt(2, id);
+
+            statement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean updateDoubleDatabase(int id, String column, double num) {
+        String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
+
+        try (Connection database = DatabaseConnection.getConnection();
+             PreparedStatement statement = database.prepareStatement(sql)) {
+
+            statement.setDouble(1, num);
+            statement.setInt(2, id);
+
+            statement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean updateStringDatabase(int id, String column, String string) {
+        String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
+
+        try (Connection database = DatabaseConnection.getConnection();
+             PreparedStatement statement = database.prepareStatement(sql)) {
+
+            statement.setString(1, string);
+            statement.setInt(2, id);
+
+            statement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

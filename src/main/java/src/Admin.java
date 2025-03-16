@@ -1,5 +1,6 @@
 package src;
 
+import javax.xml.crypto.Data;
 import java.util.Scanner;
 
 public class Admin implements IAdmin {
@@ -27,7 +28,7 @@ public class Admin implements IAdmin {
         s.nextLine();
 
         System.out.print("Status: ");
-        String status = s.nextLine().toLowerCase();
+        String status = s.nextLine();
 
         DatabaseConnection.addCustomerToDatabase(login, pin, name, balance, status);
 
@@ -67,11 +68,50 @@ public class Admin implements IAdmin {
         System.out.print("Enter Account number: ");
         int id = s.nextInt();
 
-        System.out.println();
-        System.out.println("The account information is:");
-        System.out.println(DatabaseConnection.findUserDatabase(id).toString());
+        while (true) {
+            System.out.println();
+            System.out.println("The account information is:");
+            System.out.println(DatabaseConnection.findUserDatabase(id).toString());
 
-        // TODO update database with editing holder (name), status, login, and pin
+            System.out.println();
+            System.out.println("1----Holder");
+            System.out.println("2----Status");
+            System.out.println("3----Login");
+            System.out.println("4----Pin");
+            System.out.println("5----Exit");
+            System.out.print("What would you like to change? (Enter the number): ");
+
+            int menu = s.nextInt();
+            s.nextLine();
+
+            switch (menu) {
+                case 1:
+                    System.out.println();
+                    System.out.print("Enter the new Holder: ");
+                    DatabaseConnection.updateStringDatabase(id, "holder", s.nextLine());
+                    break;
+                case 2:
+                    System.out.println();
+                    System.out.print("Enter the new Status: ");
+                    DatabaseConnection.updateStringDatabase(id, "status", s.nextLine());
+                    break;
+                case 3:
+                    System.out.println();
+                    System.out.print("Enter the new Login: ");
+                    DatabaseConnection.updateStringDatabase(id, "login", s.nextLine());
+                    break;
+                case 4:
+                    System.out.println();
+                    System.out.print("Enter the new Pin: ");
+                    DatabaseConnection.updateIntDatabase(id, "pin", s.nextInt());
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("That is not a valid option, please try again");
+            }
+        }
     }
 
     @Override
@@ -82,8 +122,14 @@ public class Admin implements IAdmin {
         int id = s.nextInt();
 
         System.out.println();
-        System.out.println("The account information is: ");
-        System.out.println(DatabaseConnection.findUserDatabase(id).toString());
+        IUser user = DatabaseConnection.findUserDatabase(id);
+
+        if (user != null) {
+            System.out.println("The account information is: ");
+            System.out.println(user);
+        } else {
+            System.out.println("Could not find user");
+        }
     }
 
     @Override
