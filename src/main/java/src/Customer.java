@@ -1,5 +1,7 @@
 package src;
 
+import com.google.inject.Inject;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 

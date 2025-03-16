@@ -2,10 +2,9 @@ package src;
 
 public interface ICustomer extends IUser {
 
-    public void withdrawCash();
-    public void depositCash();
-    public void displayBalance();
-    public void exit();
+    void withdrawCash();
+    void depositCash();
+    void displayBalance();
 
     int getId();
     String getName();

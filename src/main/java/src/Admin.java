@@ -1,12 +1,11 @@
 package src;
 
-import javax.xml.crypto.Data;
+import com.google.inject.Inject;
+
 import java.util.Scanner;
 
 public class Admin implements IAdmin {
-    public Admin() {
-
-    }
+    public Admin() {}
 
     @Override
     public void createNewAccount() {

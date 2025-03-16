@@ -1,13 +1,17 @@
 package src;
 
-import java.sql.SQLException;
+import com.google.inject.Inject;
+
 import java.util.Scanner;
 
-public class Login {
+public class Login implements ILogin {
     private static String login;
     private static int pin;
 
-    public static IUser login() throws SQLException {
+    @Inject
+    public Login() {}
+
+    public IUser login() {
         Scanner s = new Scanner(System.in);
 
         System.out.println("Hello! Please login below");
