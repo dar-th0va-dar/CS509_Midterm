@@ -16,50 +16,46 @@ public class DatabaseConnection {
         }
     }
 
-    public static IUser findUserDatabase(String login, int pin) throws SQLException {
-        Connection database = DatabaseConnection.getConnection();
-        PreparedStatement statement = null;
-        ResultSet user = null;
-
+    public static IUser findUserDatabase(String login, int pin) {
         String sql = "SELECT * FROM users WHERE login = ? AND pin = ?";
 
-        assert database != null;
-        statement = database.prepareStatement(sql);
-        statement.setString(1, login);
-        statement.setInt(2, pin);
+        try (Connection database = DatabaseConnection.getConnection();
+             PreparedStatement statement = database.prepareStatement(sql)) {
 
-        user = statement.executeQuery();
+            statement.setString(1, login);
+            statement.setInt(2, pin);
 
-        if (user.next()) {
-            if (user.getString("role").equals("customer")) {
-                return new Customer(user.getInt("id"),
-                        user.getString("login"),
-                        user.getInt("pin"),
-                        user.getString("holder"),
-                        user.getDouble("balance"),
-                        user.getString("status"));
-            } else if (user.getString("role").equals("admin")) {
-                return new Admin();
+            ResultSet user = statement.executeQuery();
+            if (user.next()) {
+                if (user.getString("role").equals("customer")) {
+                    return new Customer(user.getInt("id"),
+                            user.getString("login"),
+                            user.getInt("pin"),
+                            user.getString("holder"),
+                            user.getDouble("balance"),
+                            user.getString("status"));
+                } else if (user.getString("role").equals("admin")) {
+                    return new Admin();
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }
-        } else {
+        } catch (Exception e) {
             return null;
         }
     }
 
     public static IUser findUserDatabase(int id) {
-        try (Connection database = DatabaseConnection.getConnection()) {
-            PreparedStatement statement = null;
-            ResultSet user = null;
+        String sql = "SELECT * FROM users WHERE id = ?";
 
-            String sql = "SELECT * FROM users WHERE id = ?";
+        try (Connection database = DatabaseConnection.getConnection();
+             PreparedStatement statement = database.prepareStatement(sql)) {
 
-            statement = database.prepareStatement(sql);
             statement.setInt(1, id);
 
-            user = statement.executeQuery();
-
+            ResultSet user = statement.executeQuery();
             if (user.next()) {
                 return new Customer(user.getInt("id"),
                         user.getString("login"),
@@ -71,7 +67,6 @@ public class DatabaseConnection {
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("That is not a user that is in the database");
             return null;
         }
     }
@@ -95,8 +90,8 @@ public class DatabaseConnection {
                 System.out.println("Failed to add customer.");
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Failed to add customer.");
         }
     }
 
@@ -113,8 +108,8 @@ public class DatabaseConnection {
             if (rowsAffected > 0) {
                 System.out.println("Account Deleted Successfully");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Failed to delete customer.");
         }
     }
 

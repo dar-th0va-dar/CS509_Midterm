@@ -1,6 +1,5 @@
 package src;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Admin implements IAdmin {
@@ -9,7 +8,7 @@ public class Admin implements IAdmin {
     }
 
     @Override
-    public void createNewAccount() throws SQLException {
+    public void createNewAccount() {
         Scanner s = new Scanner(System.in);
         System.out.println("Please enter the account information");
 
