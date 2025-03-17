@@ -1,5 +1,7 @@
 package src;
 
+import src.interfaces.ICustomer;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 

@@ -1,12 +1,13 @@
 package src;
 
-import javax.xml.crypto.Data;
+import src.interfaces.IAdmin;
+import src.interfaces.ICustomer;
+import src.interfaces.IUser;
+
 import java.util.Scanner;
 
 public class Admin implements IAdmin {
-    public Admin() {
-
-    }
+    public Admin() {}
 
     @Override
     public void createNewAccount() {
@@ -45,8 +46,8 @@ public class Admin implements IAdmin {
         int id = s.nextInt();
 
         System.out.println();
-        if (DatabaseConnection.findUserDatabase(id) != null) {
-            ICustomer customer = (ICustomer) DatabaseConnection.findUserDatabase(id);
+        ICustomer customer = (ICustomer) DatabaseConnection.findUserDatabase(id);
+        if (customer != null) {
             System.out.print("You wish to delete the account held by " + customer.getName() +
                     ". If this information is correct, please re-enter the account number: ");
             int check = s.nextInt();

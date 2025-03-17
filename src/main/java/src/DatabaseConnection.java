@@ -1,5 +1,7 @@
 package src;
 
+import src.interfaces.IUser;
+
 import java.sql.*;
 
 public class DatabaseConnection {
