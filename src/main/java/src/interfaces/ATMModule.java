@@ -1,8 +1,8 @@
-package src;
+package src.interfaces;
 
 import com.google.inject.AbstractModule;
-import src.interfaces.ILogin;
-import src.interfaces.IRun;
+import src.ui.Login;
+import src.ui.Run;
 
 public class ATMModule extends AbstractModule {
     @Override

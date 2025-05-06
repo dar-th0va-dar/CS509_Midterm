@@ -1,5 +1,7 @@
-package src;
+package src.dal;
 
+import src.ui.Admin;
+import src.ui.Customer;
 import src.interfaces.IUser;
 
 import java.sql.*;

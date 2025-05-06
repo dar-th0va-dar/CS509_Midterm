@@ -1,5 +1,6 @@
-package src;
+package src.ui;
 
+import src.dal.DatabaseConnection;
 import src.interfaces.IAdmin;
 import src.interfaces.ICustomer;
 import src.interfaces.IUser;

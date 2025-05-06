@@ -1,4 +1,4 @@
-package src;
+package src.ui;
 
 import com.google.inject.Inject;
 import src.interfaces.*;

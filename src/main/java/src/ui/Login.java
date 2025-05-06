@@ -1,6 +1,7 @@
-package src;
+package src.ui;
 
 import com.google.inject.Inject;
+import src.dal.DatabaseConnection;
 import src.interfaces.ILogin;
 import src.interfaces.IUser;
 
