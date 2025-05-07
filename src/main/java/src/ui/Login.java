@@ -28,7 +28,7 @@ public class Login implements ILogin {
         }
 
         System.out.print("Pin: ");
-        int pin = s.nextInt();
+        final int pin = s.nextInt();
 
         System.out.println();
         if (pin < 10000 || pin > 99999) {

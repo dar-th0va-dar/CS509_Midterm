@@ -133,6 +133,11 @@ public class Customer implements ICustomer {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(id, login, pin, name, balance, status);
+    }
+
+    @Override
     public String toString() {
         return "Account #" + id + "\n" +
                 "Holder: " + name + "\n" +

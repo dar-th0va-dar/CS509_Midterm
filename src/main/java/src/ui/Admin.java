@@ -170,4 +170,9 @@ public class Admin implements IAdmin {
     public boolean equals(final Object obj) {
         return this == obj;
     }
+
+    @Override
+    public int hashCode() {
+        return System.identityHashCode(this);
+    }
 }
