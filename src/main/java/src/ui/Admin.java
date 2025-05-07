@@ -21,29 +21,29 @@ public class Admin implements IAdmin {
      */
     @Override
     public void createNewAccount() {
-        Scanner s = new Scanner(System.in);
+        final Scanner s = new Scanner(System.in);
         System.out.println("Please enter the account information");
 
         System.out.print("Login: ");
-        String login = s.nextLine();
+        final String login = s.nextLine();
 
         System.out.print("Pin Code: ");
-        int pin = s.nextInt();
+        final int pin = s.nextInt();
         s.nextLine();
 
         System.out.print("Holder's Name: ");
-        String name = s.nextLine();
+        final String name = s.nextLine();
 
         System.out.print("Starting Balance: ");
-        double balance = s.nextDouble();
+        final double balance = s.nextDouble();
         s.nextLine();
 
         System.out.print("Status: ");
-        String status = s.nextLine();
+        final String status = s.nextLine();
 
         DatabaseConnection.addCustomerToDatabase(login, pin, name, balance, status);
 
-        ICustomer customer = (ICustomer) DatabaseConnection.findUserDatabase(login, pin);
+        final ICustomer customer = (ICustomer) DatabaseConnection.findUserDatabase(login, pin);
         System.out.println("Account Successfully Created – the account number assigned is: " +
                 customer.getId());
     }
@@ -53,17 +53,17 @@ public class Admin implements IAdmin {
      */
     @Override
     public void deleteExistingAccount() {
-        Scanner s = new Scanner(System.in);
+        final Scanner s = new Scanner(System.in);
 
         System.out.print("Enter the account number to which you want to delete: ");
-        int id = s.nextInt();
+        final int id = s.nextInt();
 
         System.out.println();
-        ICustomer customer = (ICustomer) DatabaseConnection.findUserDatabase(id);
+        final ICustomer customer = (ICustomer) DatabaseConnection.findUserDatabase(id);
         if (customer != null) {
             System.out.print("You wish to delete the account held by " + customer.getName() +
                     ". If this information is correct, please re-enter the account number: ");
-            int check = s.nextInt();
+            final int check = s.nextInt();
 
             if (id == check) {
                 DatabaseConnection.deleteCustomerFromDatabase(id);
@@ -80,10 +80,10 @@ public class Admin implements IAdmin {
      */
     @Override
     public void updateAccountInfo() {
-        Scanner s = new Scanner(System.in);
+        final Scanner s = new Scanner(System.in);
 
         System.out.print("Enter Account number: ");
-        int id = s.nextInt();
+        final int id = s.nextInt();
 
         while (true) {
             System.out.println();
@@ -98,7 +98,7 @@ public class Admin implements IAdmin {
             System.out.println("5----Exit");
             System.out.print("What would you like to change? (Enter the number): ");
 
-            int menu = s.nextInt();
+            final int menu = s.nextInt();
             s.nextLine();
 
             switch (menu) {
@@ -136,13 +136,13 @@ public class Admin implements IAdmin {
      */
     @Override
     public void searchForAccount() {
-        Scanner s = new Scanner(System.in);
+        final Scanner s = new Scanner(System.in);
 
         System.out.print("Enter Account Number: ");
-        int id = s.nextInt();
+        final int id = s.nextInt();
 
         System.out.println();
-        IUser user = DatabaseConnection.findUserDatabase(id);
+        final IUser user = DatabaseConnection.findUserDatabase(id);
 
         if (user != null) {
             System.out.println("The account information is: ");
@@ -167,7 +167,7 @@ public class Admin implements IAdmin {
      * @return boolean if the objects are the same
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         return this == obj;
     }
 }

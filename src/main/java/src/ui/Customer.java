@@ -9,15 +9,15 @@ import java.util.Scanner;
 
 public class Customer implements ICustomer {
     private final int id;
-    private String login;
-    private int pin;
-    private String name;
+    private final String login;
+    private final int pin;
+    private final String name;
     private double balance;
-    private String status;
+    private final String status;
 
     private LocalDate date;
 
-    public Customer(int id, String login, int pin, String name, double balance, String status) {
+    public Customer(final int id, final String login, final int pin, final String name, final double balance, final String status) {
         this.id = id;
         this.login = login;
         this.pin = pin;
@@ -47,16 +47,16 @@ public class Customer implements ICustomer {
      */
     @Override
     public void withdrawCash() {
-        Scanner s = new Scanner(System.in);
+        final Scanner s = new Scanner(System.in);
         date = LocalDate.now();
 
         System.out.print("Enter the withdrawal amount: ");
-        double amount = s.nextDouble();
+        final double amount = s.nextDouble();
 
         if (amount <= balance) {
             balance -= amount;
 
-            boolean update = DatabaseConnection.updateDoubleDatabase(id, "balance", balance);
+            final boolean update = DatabaseConnection.updateDoubleDatabase(id, "balance", balance);
             if (update) {
                 System.out.println("Cash Successfully Withdrawn");
                 System.out.println("Account #" + id);
@@ -76,14 +76,14 @@ public class Customer implements ICustomer {
      */
     @Override
     public void depositCash() {
-        Scanner s = new Scanner(System.in);
+        final Scanner s = new Scanner(System.in);
         date = LocalDate.now();
 
         System.out.print("Enter the cash amount to deposit: ");
-        double amount = s.nextDouble();
+        final double amount = s.nextDouble();
         balance += amount;
 
-        boolean update = DatabaseConnection.updateDoubleDatabase(id, "balance", balance);
+        final boolean update = DatabaseConnection.updateDoubleDatabase(id, "balance", balance);
         if (update) {
             System.out.println("Cash Deposited Successfully");
             System.out.println("Account #" + id);
@@ -122,8 +122,8 @@ public class Customer implements ICustomer {
      * @return boolean if the objects are the same
      */
     @Override
-    public boolean equals(Object obj) {
-        Customer customer = (Customer) obj;
+    public boolean equals(final Object obj) {
+        final Customer customer = (Customer) obj;
         return id == customer.id &&
                 Objects.equals(login, customer.login) &&
                 Objects.equals(pin, customer.pin) &&

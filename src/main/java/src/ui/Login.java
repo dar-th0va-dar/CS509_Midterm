@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Login implements ILogin {
     private static String login;
-    private static int pin;
 
     @Inject
     public Login() {}
@@ -19,7 +18,7 @@ public class Login implements ILogin {
      * @return IUser of a Customer or Admin, depending on the account associated with the login information
      */
     public IUser login() {
-        Scanner s = new Scanner(System.in);
+        final Scanner s = new Scanner(System.in);
 
         System.out.println("Hello! Please login below");
         System.out.print("Login: ");
@@ -29,7 +28,7 @@ public class Login implements ILogin {
         }
 
         System.out.print("Pin: ");
-        pin = s.nextInt();
+        int pin = s.nextInt();
 
         System.out.println();
         if (pin < 10000 || pin > 99999) {

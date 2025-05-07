@@ -6,10 +6,10 @@ import src.interfaces.*;
 import java.util.Scanner;
 
 public class Run implements IRun {
-    ILogin login;
+    final ILogin login;
 
     @Inject
-    public Run(ILogin login) {
+    public Run(final ILogin login) {
         this.login = login;
     }
 
@@ -18,7 +18,7 @@ public class Run implements IRun {
      */
     @Override
     public void runATM() {
-        Scanner s = new Scanner(System.in);
+        final Scanner s = new Scanner(System.in);
         IUser user = null;
 
         while (user == null) {
@@ -35,7 +35,7 @@ public class Run implements IRun {
                     System.out.println("4----Exit");
                     System.out.print("What would you like to do? (Enter the number): ");
 
-                    int menu = s.nextInt();
+                    final int menu = s.nextInt();
                     System.out.println();
                     switch (menu) {
                         case 1:
@@ -66,7 +66,7 @@ public class Run implements IRun {
                     System.out.println("5----Exit");
                     System.out.print("What would you like to do? (Enter the number): ");
 
-                    int menu = s.nextInt();
+                    final int menu = s.nextInt();
                     System.out.println();
                     switch (menu) {
                         case 1:

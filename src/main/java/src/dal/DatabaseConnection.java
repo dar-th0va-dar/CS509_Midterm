@@ -14,28 +14,27 @@ public class DatabaseConnection {
     public static Connection getConnection() {
         try {
             return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (final SQLException e) {
             return null;
         }
     }
 
     /**
-     * Finds a user in the database based on the login and pin number
+     * Finds a user in the database based on the login and pin
      * @param login identifying login name
      * @param pin identifying login pin
      * @return IUser of a Customer or Admin, depending on the account associated with the login information
      */
-    public static IUser findUserDatabase(String login, int pin) {
-        String sql = "SELECT * FROM users WHERE login = ? AND pin = ?";
+    public static IUser findUserDatabase(final String login, final int pin) {
+        final String sql = "SELECT * FROM users WHERE login = ? AND pin = ?";
 
-        try (Connection database = DatabaseConnection.getConnection();
-             PreparedStatement statement = database.prepareStatement(sql)) {
+        try (final Connection database = DatabaseConnection.getConnection();
+             final PreparedStatement statement = database.prepareStatement(sql)) {
 
             statement.setString(1, login);
             statement.setInt(2, pin);
 
-            ResultSet user = statement.executeQuery();
+            final ResultSet user = statement.executeQuery();
             if (user.next()) {
                 if (user.getString("role").equals("customer")) {
                     return new Customer(user.getInt("id"),
@@ -52,7 +51,7 @@ public class DatabaseConnection {
             } else {
                 return null;
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return null;
         }
     }
@@ -62,15 +61,15 @@ public class DatabaseConnection {
      * @param id auto-assigned ID from the database to find the customer
      * @return IUser of a Customer or Admin, depending on the account associated with the ID number
      */
-    public static IUser findUserDatabase(int id) {
-        String sql = "SELECT * FROM users WHERE id = ?";
+    public static IUser findUserDatabase(final int id) {
+        final String sql = "SELECT * FROM users WHERE id = ?";
 
-        try (Connection database = DatabaseConnection.getConnection();
-             PreparedStatement statement = database.prepareStatement(sql)) {
+        try (final Connection database = DatabaseConnection.getConnection();
+             final PreparedStatement statement = database.prepareStatement(sql)) {
 
             statement.setInt(1, id);
 
-            ResultSet user = statement.executeQuery();
+            final ResultSet user = statement.executeQuery();
             if (user.next()) {
                 return new Customer(user.getInt("id"),
                         user.getString("login"),
@@ -81,7 +80,7 @@ public class DatabaseConnection {
             } else {
                 return null;
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return null;
         }
     }
@@ -94,11 +93,11 @@ public class DatabaseConnection {
      * @param balance starting balance of the customer
      * @param status current status of the account
      */
-    public static void addCustomerToDatabase(String login, int pin, String name, double balance, String status) {
-        String sql = "INSERT INTO users (login, pin, role, holder, balance, status) VALUES (?, ?, 'customer', ?, ?, ?)";
+    public static void addCustomerToDatabase(final String login, final int pin, final String name, final double balance, final String status) {
+        final String sql = "INSERT INTO users (login, pin, role, holder, balance, status) VALUES (?, ?, 'customer', ?, ?, ?)";
 
-        try (Connection database = getConnection();
-             PreparedStatement statement = database.prepareStatement(sql)) {
+        try (final Connection database = getConnection();
+             final PreparedStatement statement = database.prepareStatement(sql)) {
 
             statement.setString(1, login);
             statement.setInt(2, pin);
@@ -108,7 +107,7 @@ public class DatabaseConnection {
 
             statement.executeUpdate();
             System.out.println("Customer added successfully!");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println("Failed to add customer.");
         }
     }
@@ -117,87 +116,83 @@ public class DatabaseConnection {
      * Finds and deletes a user in the database based on the database ID
      * @param id auto-assigned ID from the database for the customer to delete
      */
-    public static void deleteCustomerFromDatabase(int id) {
-        String sql = "DELETE FROM users WHERE id = ?";
+    public static void deleteCustomerFromDatabase(final int id) {
+        final String sql = "DELETE FROM users WHERE id = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
+        try (final Connection conn = getConnection();
+             final PreparedStatement statement = conn.prepareStatement(sql)) {
 
             statement.setInt(1, id);
 
             statement.executeUpdate();
             System.out.println("Account Deleted Successfully");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println("Failed to delete customer.");
         }
     }
 
     /**
      * Update an integer in the database
-     * @param id ID number of the user to update
+     *
+     * @param id     ID number of the user to update
      * @param column column in the database to update
-     * @param num the number to update to
-     * @return boolean of if the update worked
+     * @param num    the number to update to
      */
-    public static boolean updateIntDatabase(int id, String column, int num) {
-        String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
+    public static void updateIntDatabase(final int id, final String column, final int num) {
+        final String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
 
-        try (Connection database = DatabaseConnection.getConnection();
-             PreparedStatement statement = database.prepareStatement(sql)) {
+        try (final Connection database = DatabaseConnection.getConnection();
+             final PreparedStatement statement = database.prepareStatement(sql)) {
 
             statement.setInt(1, num);
             statement.setInt(2, id);
 
             statement.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
+        } catch (final Exception e) {
         }
     }
 
     /**
-     * Update an double in the database
+     * Update a double in the database
      * @param id ID number of the user to update
      * @param column column in the database to update
      * @param num the number to update to
      * @return boolean of if the update worked
      */
-    public static boolean updateDoubleDatabase(int id, String column, double num) {
-        String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
+    public static boolean updateDoubleDatabase(final int id, final String column, final double num) {
+        final String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
 
-        try (Connection database = DatabaseConnection.getConnection();
-             PreparedStatement statement = database.prepareStatement(sql)) {
+        try (final Connection database = DatabaseConnection.getConnection();
+             final PreparedStatement statement = database.prepareStatement(sql)) {
 
             statement.setDouble(1, num);
             statement.setInt(2, id);
 
             statement.executeUpdate();
             return true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return false;
         }
     }
 
     /**
      * Update a String in the database
-     * @param id ID number of the user to update
+     *
+     * @param id     ID number of the user to update
      * @param column column in the database to update
      * @param string the string to update to
-     * @return boolean of if the update worked
      */
-    public static boolean updateStringDatabase(int id, String column, String string) {
-        String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
+    public static void updateStringDatabase(final int id, final String column, final String string) {
+        final String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
 
-        try (Connection database = DatabaseConnection.getConnection();
-             PreparedStatement statement = database.prepareStatement(sql)) {
+        try (final Connection database = DatabaseConnection.getConnection();
+             final PreparedStatement statement = database.prepareStatement(sql)) {
 
             statement.setString(1, string);
             statement.setInt(2, id);
 
             statement.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
+        } catch (final Exception e) {
         }
     }
 }
