@@ -14,6 +14,10 @@ public class Login implements ILogin {
     @Inject
     public Login() {}
 
+    /**
+     * Checks the login information of the user
+     * @return IUser of a Customer or Admin, depending on the account associated with the login information
+     */
     public IUser login() {
         Scanner s = new Scanner(System.in);
 
