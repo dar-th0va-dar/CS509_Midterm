@@ -16,6 +16,9 @@ public class Admin implements IAdmin {
         return INSTANCE;
     }
 
+    /**
+     * Create a new customer account using information from the terminal
+     */
     @Override
     public void createNewAccount() {
         Scanner s = new Scanner(System.in);
@@ -45,6 +48,9 @@ public class Admin implements IAdmin {
                 customer.getId());
     }
 
+    /**
+     * Deletes a customer account using information from the terminal
+     */
     @Override
     public void deleteExistingAccount() {
         Scanner s = new Scanner(System.in);
@@ -69,6 +75,9 @@ public class Admin implements IAdmin {
         }
     }
 
+    /**
+     * Updates a customer account using information from the terminal
+     */
     @Override
     public void updateAccountInfo() {
         Scanner s = new Scanner(System.in);
@@ -122,6 +131,9 @@ public class Admin implements IAdmin {
         }
     }
 
+    /**
+     * Searches for a customer account using information from the terminal
+     */
     @Override
     public void searchForAccount() {
         Scanner s = new Scanner(System.in);
@@ -140,19 +152,22 @@ public class Admin implements IAdmin {
         }
     }
 
+    /**
+     * Exits the ATM
+     */
     @Override
     public void exit() {
         System.out.println("Thank you for using this ATM!");
         System.exit(0);
     }
 
+    /**
+     * Checks if 2 objects are the same
+     * @param obj Object to compare with
+     * @return boolean if the objects are the same
+     */
     @Override
     public boolean equals(Object obj) {
         return this == obj;
-    }
-
-    @Override
-    public int hashCode() {
-        return System.identityHashCode(this);
     }
 }
