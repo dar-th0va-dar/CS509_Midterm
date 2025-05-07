@@ -20,6 +20,12 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Finds a user in the database based on the login and pin number
+     * @param login identifying login name
+     * @param pin identifying login pin
+     * @return IUser of a Customer or Admin, depending on the account associated with the login information
+     */
     public static IUser findUserDatabase(String login, int pin) {
         String sql = "SELECT * FROM users WHERE login = ? AND pin = ?";
 
@@ -51,6 +57,11 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Finds a user in the database based on the database ID
+     * @param id auto-assigned ID from the database to find the customer
+     * @return IUser of a Customer or Admin, depending on the account associated with the ID number
+     */
     public static IUser findUserDatabase(int id) {
         String sql = "SELECT * FROM users WHERE id = ?";
 
@@ -75,6 +86,14 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Adds a customer with the given information to the database
+     * @param login identifying login name
+     * @param pin identifying login pin
+     * @param name name of the customer
+     * @param balance starting balance of the customer
+     * @param status current status of the account
+     */
     public static void addCustomerToDatabase(String login, int pin, String name, double balance, String status) {
         String sql = "INSERT INTO users (login, pin, role, holder, balance, status) VALUES (?, ?, 'customer', ?, ?, ?)";
 
@@ -94,6 +113,10 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Finds and deletes a user in the database based on the database ID
+     * @param id auto-assigned ID from the database for the customer to delete
+     */
     public static void deleteCustomerFromDatabase(int id) {
         String sql = "DELETE FROM users WHERE id = ?";
 
@@ -109,6 +132,13 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Update an integer in the database
+     * @param id ID number of the user to update
+     * @param column column in the database to update
+     * @param num the number to update to
+     * @return boolean of if the update worked
+     */
     public static boolean updateIntDatabase(int id, String column, int num) {
         String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
 
@@ -125,6 +155,13 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Update an double in the database
+     * @param id ID number of the user to update
+     * @param column column in the database to update
+     * @param num the number to update to
+     * @return boolean of if the update worked
+     */
     public static boolean updateDoubleDatabase(int id, String column, double num) {
         String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
 
@@ -141,6 +178,13 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Update a String in the database
+     * @param id ID number of the user to update
+     * @param column column in the database to update
+     * @param string the string to update to
+     * @return boolean of if the update worked
+     */
     public static boolean updateStringDatabase(int id, String column, String string) {
         String sql = "UPDATE users SET " + column + " = ? WHERE id = ?";
 
