@@ -13,6 +13,9 @@ public class Run implements IRun {
         this.login = login;
     }
 
+    /**
+     * Runs the ATM using information from the terminal
+     */
     @Override
     public void runATM() {
         Scanner s = new Scanner(System.in);
