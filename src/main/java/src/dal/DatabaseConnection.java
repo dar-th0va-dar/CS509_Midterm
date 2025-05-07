@@ -39,7 +39,7 @@ public class DatabaseConnection {
                             user.getDouble("balance"),
                             user.getString("status"));
                 } else if (user.getString("role").equals("admin")) {
-                    return new Admin();
+                    return Admin.getInstance();
                 } else {
                     return null;
                 }
