@@ -1,0 +1,43 @@
+name: Java CI/CD with Maven and Javadoc Deployment
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Validate code style with Checkstyle
+        run: mvn checkstyle:check
+
+      - name: Build in Debug mode (default)
+        run: mvn clean compile
+
+      - name: Build in Release mode (skip tests)
+        run: mvn clean package -P release -DskipTests
+
+      - name: Run unit tests
+        run: mvn test
+
+      - name: Generate Javadoc
+        run: mvn javadoc:javadoc
+
+      - name: Deploy Javadoc to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/apidocs
