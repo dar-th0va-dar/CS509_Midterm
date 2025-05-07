@@ -8,7 +8,13 @@ import src.interfaces.IUser;
 import java.util.Scanner;
 
 public class Admin implements IAdmin {
-    public Admin() {}
+    private static final Admin INSTANCE = new Admin();
+
+    private Admin() {}
+
+    public static Admin getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public void createNewAccount() {
@@ -138,5 +144,15 @@ public class Admin implements IAdmin {
     public void exit() {
         System.out.println("Thank you for using this ATM!");
         System.exit(0);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj;
+    }
+
+    @Override
+    public int hashCode() {
+        return System.identityHashCode(this);
     }
 }
