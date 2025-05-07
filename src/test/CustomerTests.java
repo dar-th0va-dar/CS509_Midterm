@@ -16,9 +16,8 @@ public class CustomerTests {
     public void testDepositCash() {
         Customer customer = new Customer(2, "Adnan123", 12345, "Adnan", 0.0, "Active");
 
-        String string = "300\n";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(string.getBytes());
-        System.setIn(inputStream);
+        String input = "300\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(outputStream);
@@ -35,9 +34,8 @@ public class CustomerTests {
     public void testValidWithdrawCash() {
         Customer customer = new Customer(2, "Adnan123", 12345, "Adnan", 300.0, "Active");
 
-        String string = "300\n";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(string.getBytes());
-        System.setIn(inputStream);
+        String input = "300\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(outputStream);
@@ -54,9 +52,8 @@ public class CustomerTests {
     public void testInvalidWithdrawCash() {
         Customer customer = new Customer(2, "Adnan123", 12345, "Adnan", 300.0, "Active");
 
-        String string = "400\n";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(string.getBytes());
-        System.setIn(inputStream);
+        String input = "400\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(outputStream);
