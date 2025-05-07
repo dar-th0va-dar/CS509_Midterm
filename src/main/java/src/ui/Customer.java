@@ -26,14 +26,25 @@ public class Customer implements ICustomer {
         this.status = status;
     }
 
+    /**
+     * Gets the customer's database ID
+     * @return int ID of the customer
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets the name of the customer
+     * @return String name of the customer
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Withdraws cash from the customer's account using information from the terminal
+     */
     @Override
     public void withdrawCash() {
         Scanner s = new Scanner(System.in);
@@ -60,6 +71,9 @@ public class Customer implements ICustomer {
         }
     }
 
+    /**
+     * Deposits cash into the customer's account using information from the terminal
+     */
     @Override
     public void depositCash() {
         Scanner s = new Scanner(System.in);
@@ -81,6 +95,9 @@ public class Customer implements ICustomer {
         }
     }
 
+    /**
+     * Displays the balance of the customer's account
+     */
     @Override
     public void displayBalance() {
         date = LocalDate.now();
@@ -90,15 +107,23 @@ public class Customer implements ICustomer {
         System.out.println("Balance: " + balance);
     }
 
+    /**
+     * Exits the ATM
+     */
     @Override
     public void exit() {
         System.out.println("Thank you for using this ATM!");
         System.exit(0);
     }
 
+    /**
+     * Checks if 2 objects are the same
+     * @param obj Object to compare with
+     * @return boolean if the objects are the same
+     */
     @Override
-    public boolean equals(Object o) {
-        Customer customer = (Customer) o;
+    public boolean equals(Object obj) {
+        Customer customer = (Customer) obj;
         return id == customer.id &&
                 Objects.equals(login, customer.login) &&
                 Objects.equals(pin, customer.pin) &&
