@@ -17,9 +17,31 @@
     <profiles>
         <profile>
             <id>skip-checkstyle</id>
-            <properties>
-                <checkstyle.skip>true</checkstyle.skip>
-            </properties>
+            <activation>
+                <property>
+                    <name>skipCheckstyle</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>${skipCheckstyle}</skip>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
