@@ -4,6 +4,7 @@ import src.dal.DatabaseConnection;
 import src.interfaces.ICustomer;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Customer implements ICustomer {
@@ -41,7 +42,7 @@ public class Customer implements ICustomer {
         System.out.print("Enter the withdrawal amount: ");
         double amount = s.nextDouble();
 
-        if (amount < balance) {
+        if (amount <= balance) {
             balance -= amount;
 
             boolean update = DatabaseConnection.updateDoubleDatabase(id, "balance", balance);
@@ -93,6 +94,24 @@ public class Customer implements ICustomer {
     public void exit() {
         System.out.println("Thank you for using this ATM!");
         System.exit(0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return id == customer.id &&
+                Objects.equals(login, customer.login) &&
+                Objects.equals(pin, customer.pin) &&
+                Objects.equals(name, customer.name) &&
+                Objects.equals(balance, customer.balance) &&
+                Objects.equals(status, customer.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login);
     }
 
     @Override
